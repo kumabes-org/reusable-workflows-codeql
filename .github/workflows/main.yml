@@ -42,8 +42,15 @@ jobs:
         with:
           languages: ${{ inputs.languages }}
       
-      - run: ls -lrth target
-      
+      - run: |
+          if [ -d "target" ]; then
+            echo "Já existe o diretório"
+            ls -lrth target
+          else
+            echo "NÃO existe o diretório"
+            mkdir target
+          fi
+              
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.project-name }}
