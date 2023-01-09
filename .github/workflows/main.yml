@@ -41,8 +41,6 @@ jobs:
       - if: inputs.languages == 'java' 
         name: Build Java
         run: |
-          echo "Antes do download"
-          ls -lrth --color
           make bootstrap
           make release
 
