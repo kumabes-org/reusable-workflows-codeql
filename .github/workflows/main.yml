@@ -50,13 +50,16 @@ jobs:
             echo "NÃO existe o diretório"
             mkdir target
           fi
-              
-      - uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.project-name }}
-          path: ${{ github.workspace }}/${{ inputs.working-directory }}/target
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2              
+      # - uses: actions/download-artifact@v3
+      #   with:
+      #     name: ${{ inputs.project-name }}
+      #     path: ${{ github.workspace }}/${{ inputs.working-directory }}/target
 
-      - run: ls -lrth target
+      - run: |
+          ls -lrth
+          ls -lrth target
       
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
