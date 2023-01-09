@@ -41,11 +41,15 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ inputs.languages }}
+      
+      - run: ls -lrth target
+      
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ inputs.project-name }}
+          path: ${{ github.workspace }}/${{ inputs.working-directory }}/target
 
-      # Autobuild attempts to build any compiled languages (C/C++, C#, Go, or Java).
-      # If this step fails, then you should remove it and run the build manually (see below).
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2
-
+      - run: ls -lrth target
+      
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
