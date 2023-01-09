@@ -26,6 +26,10 @@ jobs:
   Security:
     name: Security
     runs-on: ${{ inputs.runs-on }}
+    permissions:
+      security-events: write
+      actions: read
+      contents: read    
     defaults:
       run:
         shell: ${{ inputs.shell }}
@@ -38,23 +42,10 @@ jobs:
         with:
           languages: ${{ inputs.languages }}
 
-      - if: inputs.languages == 'java' 
-        name: Build Java
-        run: |
-          make bootstrap
-          make release
-
-      - if: inputs.languages == 'java'
-        uses: actions/download-artifact@v3
-        with:
-          name: ${{ inputs.project-name }}
-          path: target
-
-      - name: "Depois do download"
-        run: |
-          echo "Depois do download"
-          ls -lrth --color
-          ls -lrth target
+      # Autobuild attempts to build any compiled languages (C/C++, C#, Go, or Java).
+      # If this step fails, then you should remove it and run the build manually (see below).
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
