@@ -41,17 +41,23 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ inputs.languages }}
-      
+          
       - run: |
-          if [ -d "target" ]; then
-            echo "Já existe o diretório"
-            ls -lrth target
-          else
-            echo "NÃO existe o diretório"
-            mkdir target
-          fi
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@v2              
+          make bootstrap
+          make release
+
+      # - run: |
+      #     if [ -d "target" ]; then
+      #       echo "Já existe o diretório"
+      #       ls -lrth target
+      #     else
+      #       echo "NÃO existe o diretório"
+      #       mkdir target
+      #     fi
+
+      # - name: Autobuild
+      #   uses: github/codeql-action/autobuild@v2
+
       # - uses: actions/download-artifact@v3
       #   with:
       #     name: ${{ inputs.project-name }}
