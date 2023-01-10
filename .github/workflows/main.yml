@@ -41,31 +41,9 @@ jobs:
         uses: github/codeql-action/init@v2
         with:
           languages: ${{ inputs.languages }}
-          
-      - run: |
-          make bootstrap
-          make release
 
-      # - run: |
-      #     if [ -d "target" ]; then
-      #       echo "Já existe o diretório"
-      #       ls -lrth target
-      #     else
-      #       echo "NÃO existe o diretório"
-      #       mkdir target
-      #     fi
-
-      # - name: Autobuild
-      #   uses: github/codeql-action/autobuild@v2
-
-      # - uses: actions/download-artifact@v3
-      #   with:
-      #     name: ${{ inputs.project-name }}
-      #     path: ${{ github.workspace }}/${{ inputs.working-directory }}/target
-
-      - run: |
-          ls -lrth
-          ls -lrth target
-      
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+     
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
